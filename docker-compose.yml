@@ -1,0 +1,162 @@
+version: '3.8'
+
+services:
+  rabbitmq:
+    image: rabbitmq:3-management
+    networks:
+      - eureka-network
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+
+  eureka-server:
+    image: eureka-server-image
+    environment:
+      - EUREKA_CLIENT_REGISTER_WITH_EUREKA=false
+      - EUREKA_CLIENT_FETCH_REGISTRY=false
+      - EUREKA_SERVER_ENABLE_SELF_PRESERVATION=false
+      - EUREKA_INSTANCE_HOSTNAME=eureka-server
+      - SPRING_APPLICATION_NAME=eureka-server
+    networks:
+      - eureka-network
+    ports:
+      - "8761:8761"
+    depends_on:
+      - rabbitmq
+
+  api-gateway:
+    image: api-gateway-image
+    environment:
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8761/eureka/
+      - SPRING_APPLICATION_NAME=api-gateway
+    networks:
+      - eureka-network
+    ports:
+      - "8080:8080"
+    depends_on:
+      eureka-server:
+        condition: service_started
+
+  payroll-service:
+    image: payroll-service-image
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://payroll-db:5432/payroll
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8761/eureka/
+      - SPRING_APPLICATION_NAME=payroll-service
+    networks:
+      - eureka-network
+    depends_on:
+      payroll-db:
+        condition: service_healthy
+      eureka-server:
+        condition: service_started
+
+  payroll-db:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: payroll
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+    networks:
+      - eureka-network
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U user"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  attendance-service:
+    image: attendance-service-image
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://attendance-db:5432/attendance
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8761/eureka/
+      - SPRING_APPLICATION_NAME=attendance-service
+    networks:
+      - eureka-network
+    depends_on:
+      attendance-db:
+        condition: service_healthy
+      eureka-server:
+        condition: service_started
+
+  attendance-db:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: attendance
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+    networks:
+      - eureka-network
+    ports:
+      - "5433:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U user"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  reporting-service:
+    image: reporting-service-image
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://reporting-db:5432/reporting
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8761/eureka/
+      - SPRING_APPLICATION_NAME=reporting-service
+    networks:
+      - eureka-network
+    depends_on:
+      reporting-db:
+        condition: service_healthy
+      eureka-server:
+        condition: service_started
+
+  reporting-db:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: reporting
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+    networks:
+      - eureka-network
+    ports:
+      - "5434:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U user"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  user-service:
+    image: user-service-image
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://user-db:5432/user
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8761/eureka/
+      - SPRING_APPLICATION_NAME=user-service
+    networks:
+      - eureka-network
+    depends_on:
+      user-db:
+        condition: service_healthy
+      eureka-server:
+        condition: service_started
+
+  user-db:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: user
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+    networks:
+      - eureka-network
+    ports:
+      - "5435:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U user"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+networks:
+  eureka-network:
+    driver: bridge
