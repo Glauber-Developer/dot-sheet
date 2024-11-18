@@ -11,12 +11,6 @@ services:
 
   eureka-server:
     image: eureka-server-image
-    environment:
-      - EUREKA_CLIENT_REGISTER_WITH_EUREKA=false
-      - EUREKA_CLIENT_FETCH_REGISTRY=false
-      - EUREKA_SERVER_ENABLE_SELF_PRESERVATION=false
-      - EUREKA_INSTANCE_HOSTNAME=eureka-server
-      - SPRING_APPLICATION_NAME=eureka-server
     networks:
       - eureka-network
     ports:
@@ -129,13 +123,23 @@ services:
 
   user-service:
     image: user-service-image
+    ports:
+      - "8084:8084"
     environment:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://user-db:5432/user
       - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8761/eureka/
       - SPRING_APPLICATION_NAME=user-service
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=root
+      - SPRING_RABBITMQ_HOST=rabbitmq
+      - SPRING_RABBITMQ_PORT=5672
+      - SPRING_RABBITMQ_USERNAME=guest
+      - SPRING_RABBITMQ_PASSWORD=guest
     networks:
       - eureka-network
     depends_on:
+      rabbitmq:
+        condition: service_started
       user-db:
         condition: service_healthy
       eureka-server:
