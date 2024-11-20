@@ -19,8 +19,15 @@ public class Attendance {
     @Column
     private LocalDateTime checkOutTime;
 
-    // Getters and Setters
+    @Column(nullable = false, updatable = false)
+    private LocalDateTime createdAt;
 
+    @PrePersist
+    public void prePersist() {
+        this.createdAt = LocalDateTime.now();
+    }
+
+    // Getters and Setters
     public Long getId() {
         return id;
     }
@@ -51,5 +58,9 @@ public class Attendance {
 
     public void setCheckOutTime(LocalDateTime checkOutTime) {
         this.checkOutTime = checkOutTime;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
     }
 }
