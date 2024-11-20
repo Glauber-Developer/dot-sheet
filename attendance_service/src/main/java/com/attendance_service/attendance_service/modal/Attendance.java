@@ -1,4 +1,4 @@
-package com.attendance_service.modal;
+package com.attendance_service.attendance_service.modal;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
