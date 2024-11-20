@@ -91,6 +91,10 @@ services:
       - eureka-network
     ports:
       - "5433:5432"
+    volumes:
+      - attendance-data:/var/lib/postgresql/data
+      - ./attendance-db/schema.sql:/docker-entrypoint-initdb.d/schema.sql
+      - ./attendance-db/data.sql:/docker-entrypoint-initdb.d/data.sql
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U user"]
       interval: 30s
@@ -160,3 +164,6 @@ services:
 networks:
   eureka-network:
     driver: bridge
+
+volumes:
+  attendance-data:
