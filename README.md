@@ -39,11 +39,12 @@ A aplicação é composta pelos seguintes microserviços:
 
 Cada microserviço possui sua própria documentação Swagger UI acessível através dos seguintes endpoints:
 
-- UserService: http://localhost:8080/user-service/swagger-ui.html
-- AttendanceService: http://localhost:8080/attendance-service/swagger-ui.html
-- PayrollService: http://localhost:8080/payroll-service/swagger-ui.html
-- ReportingService: http://localhost:8080/reporting-service/swagger-ui.html
-
+- API Gateway: http://localhost:8080/swagger-ui.html
+- User Service: http://localhost:8084/swagger-ui.html
+- Attendance Service: http://localhost:8086/swagger-ui.html
+- Payroll Service: http://localhost:8087/swagger-ui.html
+- Reporting Service: http://localhost:8085/swagger-ui.html
+- Eureka Server: http://localhost:8761
 ---
 
 ## **Diagrama do Fluxo de Comunicação**
