@@ -73,8 +73,16 @@ services:
 
   attendance-service:
     image: attendance-service-image
+    ports:
+      - "8086:8086"
     environment:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://attendance-db:5432/attendance
+      - SPRING_DATASOURCE_USERNAME=user
+      - SPRING_DATASOURCE_PASSWORD=password
+      - SPRING_RABBITMQ_HOST=rabbitmq
+      - SPRING_RABBITMQ_PORT=5672
+      - SPRING_RABBITMQ_USERNAME=guest
+      - SPRING_RABBITMQ_PASSWORD=guest
       - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8761/eureka/
       - SPRING_APPLICATION_NAME=attendance-service
     networks:
@@ -95,10 +103,6 @@ services:
       - eureka-network
     ports:
       - "5433:5432"
-    # volumes:
-    #   - attendance-data:/var/lib/postgresql/data
-    #   - ./attendance-db/schema.sql:/docker-entrypoint-initdb.d/schema.sql
-    #   - ./attendance-db/data.sql:/docker-entrypoint-initdb.d/data.sql
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U user"]
       interval: 30s
