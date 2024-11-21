@@ -110,9 +110,3 @@ Antes de rodar o projeto, certifique-se de ter instalado:
 10. Acesse o Spring Doc para Attendance:
    ```bash
    http://localhost:8086/swagger-ui/index.html
-
-
-
-## *Licença*
-
-*Este projeto está licenciado sob a MIT License.*
