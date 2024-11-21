@@ -1,8 +1,9 @@
 package com.attendance_service.attendance_service;
 
+import com.attendance_service.attendance_service.app.service.AttendanceService;
+import com.attendance_service.attendance_service.domain.Attendance;
 import com.attendance_service.attendance_service.infrastructure.repository.AttendanceRepository;
-import com.attendance_service.attendance_service.model.Attendance;
-import com.attendance_service.attendance_service.service.AttendanceService;
+
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;

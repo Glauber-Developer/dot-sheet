@@ -1,10 +1,10 @@
-package com.attendance_service.attendance_service.controller;
+package com.attendance_service.attendance_service.app.controller;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.attendance_service.attendance_service.model.Attendance;
-import com.attendance_service.attendance_service.service.AttendanceService;
+import com.attendance_service.attendance_service.app.service.AttendanceService;
+import com.attendance_service.attendance_service.domain.Attendance;
 
 import java.util.List;
 

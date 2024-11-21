@@ -1,4 +1,4 @@
-package com.reporting_service.reporting_service.repository;
+package com.reporting_service.reporting_service.infrastructure.repository;
 
 import java.time.LocalDate;
 import java.util.List;
