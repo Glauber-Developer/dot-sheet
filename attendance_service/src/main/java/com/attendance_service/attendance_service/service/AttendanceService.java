@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import com.attendance_service.attendance_service.RabbitMQPublisher;
 import com.attendance_service.attendance_service.modal.Attendance;
 import com.attendance_service.attendance_service.repository.AttendanceRepository;
-
 @Service
 public class AttendanceService {
     @Autowired
