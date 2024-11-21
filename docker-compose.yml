@@ -39,10 +39,14 @@ services:
 
   payroll-service:
     image: payroll-service-image
+    ports:
+      - "8087:8087"
     environment:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://payroll-db:5432/payroll
       - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8761/eureka/
       - SPRING_APPLICATION_NAME=payroll-service
+      - SPRING_DATASOURCE_USERNAME=user
+      - SPRING_DATASOURCE_PASSWORD=password
     networks:
       - eureka-network
     depends_on:
