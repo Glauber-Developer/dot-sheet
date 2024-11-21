@@ -1,4 +1,4 @@
-package com.payroll_service.payroll_service.service;
+package com.payroll_service.payroll_service.app.service;
 
 import java.time.Duration;
 
@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.payroll_service.payroll_service.domain.Attendance;
 import com.payroll_service.payroll_service.domain.User;
-import com.payroll_service.payroll_service.repository.UserRepository;
+import com.payroll_service.payroll_service.infrastructure.repository.UserRepository;
 
 @Service
 public class PayrollService {

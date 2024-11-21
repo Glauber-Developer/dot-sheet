@@ -1,7 +1,8 @@
-package com.reporting_service.reporting_service.controller;
+package com.reporting_service.reporting_service.app.controller;
 
+import com.reporting_service.reporting_service.app.service.ReportingService;
 import com.reporting_service.reporting_service.domain.AttendanceReport;
-import com.reporting_service.reporting_service.service.ReportingService;
+
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

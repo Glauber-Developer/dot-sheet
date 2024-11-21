@@ -2,7 +2,7 @@ package com.attendance_service.attendance_service.infrastructure.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.attendance_service.attendance_service.model.Attendance;
+import com.attendance_service.attendance_service.domain.Attendance;
 
 import java.util.List;
 import java.util.Optional;

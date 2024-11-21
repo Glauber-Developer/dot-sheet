@@ -1,7 +1,8 @@
-package com.reporting_service.reporting_service.service;
+package com.reporting_service.reporting_service.app.service;
 
 import com.reporting_service.reporting_service.domain.AttendanceReport;
-import com.reporting_service.reporting_service.repository.AttendanceReportRepository;
+import com.reporting_service.reporting_service.infrastructure.repository.AttendanceReportRepository;
+
 import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.List;
