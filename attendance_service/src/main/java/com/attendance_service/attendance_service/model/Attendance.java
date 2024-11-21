@@ -1,58 +1,66 @@
-// package com.attendance_service.attendance_service.model;
+package com.attendance_service.attendance_service.model;
 
+import jakarta.persistence.*;
+import java.time.LocalDateTime;
 
-// import jakarta.persistence.*;
+@Entity
+public class Attendance {
 
-// @Entity
-// public class Attendance {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-//     @Id
-//     @GeneratedValue(strategy = GenerationType.IDENTITY)
-//     private Long id;
+    @Column(nullable = false)
+    private String employeeId;
 
-//     private String userId;
-//     private String status; // Present, Absent, etc.
-//     private String date; // Simplificado como String (pode ser LocalDate)
+    @Column(nullable = false)
+    private LocalDateTime checkInTime;
 
-//     public Attendance() {
-//     }
+    @Column
+    private LocalDateTime checkOutTime;
 
-//     public Attendance(String userId, String status, String date) {
-//         this.userId = userId;
-//         this.status = status;
-//         this.date = date;
-//     }
+    @Column(nullable = false, updatable = false)
+    private LocalDateTime createdAt;
 
-//     // Getters e Setters
-//     public Long getId() {
-//         return id;
-//     }
+    @PrePersist
+    public void prePersist() {
+        this.createdAt = LocalDateTime.now();
+    }
 
-//     public void setId(Long id) {
-//         this.id = id;
-//     }
+    // Getters and Setters
+    public Long getId() {
+        return id;
+    }
 
-//     public String getUserId() {
-//         return userId;
-//     }
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-//     public void setUserId(String userId) {
-//         this.userId = userId;
-//     }
+    public String getEmployeeId() {
+        return employeeId;
+    }
 
-//     public String getStatus() {
-//         return status;
-//     }
+    public void setEmployeeId(String employeeId) {
+        this.employeeId = employeeId;
+    }
 
-//     public void setStatus(String status) {
-//         this.status = status;
-//     }
+    public LocalDateTime getCheckInTime() {
+        return checkInTime;
+    }
 
-//     public String getDate() {
-//         return date;
-//     }
+    public void setCheckInTime(LocalDateTime checkInTime) {
+        this.checkInTime = checkInTime;
+    }
 
-//     public void setDate(String date) {
-//         this.date = date;
-//     }
-// }
+    public LocalDateTime getCheckOutTime() {
+        return checkOutTime;
+    }
+
+    public void setCheckOutTime(LocalDateTime checkOutTime) {
+        this.checkOutTime = checkOutTime;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+}

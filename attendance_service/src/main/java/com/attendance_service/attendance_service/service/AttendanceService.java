@@ -8,8 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.attendance_service.attendance_service.RabbitMQPublisher;
-import com.attendance_service.attendance_service.modal.Attendance;
-import com.attendance_service.attendance_service.repository.AttendanceRepository;
+import com.attendance_service.attendance_service.infrastructure.repository.AttendanceRepository;
+import com.attendance_service.attendance_service.model.Attendance;
 @Service
 public class AttendanceService {
     @Autowired

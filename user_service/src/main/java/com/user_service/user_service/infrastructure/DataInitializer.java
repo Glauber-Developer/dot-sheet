@@ -1,7 +1,8 @@
-package com.user_service.user_service;
+package com.user_service.user_service.infrastructure;
 
 import com.user_service.user_service.domain.User;
-import com.user_service.user_service.infrastructure.UserRepository;
+import com.user_service.user_service.infrastructure.repository.UserRepository;
+
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 

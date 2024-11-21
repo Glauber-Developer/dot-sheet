@@ -1,7 +1,7 @@
 package com.attendance_service.attendance_service;
 
 import com.attendance_service.attendance_service.controller.AttendanceController;
-import com.attendance_service.attendance_service.modal.Attendance;
+import com.attendance_service.attendance_service.model.Attendance;
 import com.attendance_service.attendance_service.service.AttendanceService;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;

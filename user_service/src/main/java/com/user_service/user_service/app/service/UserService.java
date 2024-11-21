@@ -1,8 +1,9 @@
-package com.user_service.user_service.app;
+package com.user_service.user_service.app.service;
 
 import com.user_service.user_service.RabbitMQPublisher;
 import com.user_service.user_service.domain.User;
-import com.user_service.user_service.infrastructure.UserRepository;
+import com.user_service.user_service.infrastructure.repository.UserRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
