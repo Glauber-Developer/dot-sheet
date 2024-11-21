@@ -1,5 +1,6 @@
 package com.user_service.user_service.app;
 
+import com.user_service.user_service.RabbitMQPublisher;
 import com.user_service.user_service.domain.User;
 import com.user_service.user_service.infrastructure.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,10 @@ import java.util.Optional;
 
 @Service
 public class UserService{
+
+    @Autowired
+    private RabbitMQPublisher rabbitMQPublisher;
+
     @Autowired
     private UserRepository userRepository;
 
@@ -26,7 +31,9 @@ public class UserService{
     }
 
     public User createUser(User user){
-        return userRepository.save(user);
+        User savedUser = userRepository.save(user);
+        rabbitMQPublisher.sendMessage(savedUser);
+        return savedUser;
     }
 
     public ResponseEntity<User> updateUser(Long id, User user) {
@@ -34,6 +41,8 @@ public class UserService{
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
         user.setId(id);
+        rabbitMQPublisher.sendMessage(user);
+
         return ResponseEntity.ok(userRepository.save(user));
     }
 
