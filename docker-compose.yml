@@ -103,10 +103,18 @@ services:
 
   reporting-service:
     image: reporting-service-image
+    ports:
+      - "8085:8085"
     environment:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://reporting-db:5432/reporting
       - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8761/eureka/
       - SPRING_APPLICATION_NAME=reporting-service
+      - SPRING_DATASOURCE_USERNAME=user
+      - SPRING_DATASOURCE_PASSWORD=password
+      - SPRING_RABBITMQ_HOST=rabbitmq
+      - SPRING_RABBITMQ_PORT=5672
+      - SPRING_RABBITMQ_USERNAME=guest
+      - SPRING_RABBITMQ_PASSWORD=guest
     networks:
       - eureka-network
     depends_on:
@@ -133,10 +141,18 @@ services:
 
   user-service:
     image: user-service-image
+    ports:
+      - "8084:8084"
     environment:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://user-db:5432/user
       - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8761/eureka/
       - SPRING_APPLICATION_NAME=user-service
+      - SPRING_DATASOURCE_USERNAME=user
+      - SPRING_DATASOURCE_PASSWORD=password
+      - SPRING_RABBITMQ_HOST=rabbitmq
+      - SPRING_RABBITMQ_PORT=5672
+      - SPRING_RABBITMQ_USERNAME=guest
+      - SPRING_RABBITMQ_PASSWORD=guest
     networks:
       - eureka-network
     depends_on:
