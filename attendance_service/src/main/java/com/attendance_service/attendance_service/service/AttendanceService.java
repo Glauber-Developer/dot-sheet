@@ -17,9 +17,11 @@ public class AttendanceService {
     private RabbitMQPublisher rabbitMQPublisher;
 
     private final AttendanceRepository attendanceRepository;
+    private final AttendanceEventPublisher eventPublisher;
 
-    public AttendanceService(AttendanceRepository attendanceRepository) {
+    public AttendanceService(AttendanceRepository attendanceRepository, AttendanceEventPublisher eventPublisher) {
         this.attendanceRepository = attendanceRepository;
+        this.eventPublisher = eventPublisher;
     }
 
     // Registrar check-in
