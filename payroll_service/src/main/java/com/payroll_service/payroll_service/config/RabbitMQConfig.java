@@ -15,18 +15,28 @@ import org.springframework.context.annotation.Configuration;
 public class RabbitMQConfig {
 
     @Bean
-    public Queue attendanceQueue() {
-        return new Queue("attendance-queue", false);
+    public Queue payrollReportingQueue() {
+        return new Queue("payroll.reporting.queue", true);
+    }
+
+    @Bean
+    public Queue userPayrollQueue() {
+        return new Queue("user.payroll.queue", true); // Fila durável
     }
 
     @Bean
     public TopicExchange exchange() {
-        return new TopicExchange("attendance-exchange");
+        return new TopicExchange("payroll-exchange");
     }
 
     @Bean
-    public Binding binding(Queue attendanceQueue, TopicExchange exchange) {
-        return BindingBuilder.bind(attendanceQueue).to(exchange).with("attendance-routing-key");
+    public Binding binding(Queue payrollReportingQueue, TopicExchange exchange) {
+        return BindingBuilder.bind(payrollReportingQueue).to(exchange).with("payroll-routing-key");
+    }
+    
+    @Bean
+    public Binding bindingUserPayroll(Queue userPayrollQueue, TopicExchange exchange) {
+        return BindingBuilder.bind(userPayrollQueue).to(exchange).with("user-payroll-routing-key");
     }
 
     @Bean

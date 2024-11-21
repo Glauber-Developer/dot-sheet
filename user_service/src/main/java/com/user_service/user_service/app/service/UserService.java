@@ -1,6 +1,6 @@
 package com.user_service.user_service.app.service;
 
-import com.user_service.user_service.RabbitMQPublisher;
+//import com.user_service.user_service.RabbitMQPublisher;
 import com.user_service.user_service.domain.User;
 import com.user_service.user_service.infrastructure.repository.UserRepository;
 
@@ -15,8 +15,8 @@ import java.util.Optional;
 @Service
 public class UserService{
 
-    @Autowired
-    private RabbitMQPublisher rabbitMQPublisher;
+    // @Autowired
+    // private RabbitMQPublisher rabbitMQPublisher;
 
     @Autowired
     private UserRepository userRepository;
@@ -33,7 +33,7 @@ public class UserService{
 
     public User createUser(User user){
         User savedUser = userRepository.save(user);
-        rabbitMQPublisher.sendMessage(savedUser);
+        //rabbitMQPublisher.sendMessage(savedUser);
         return savedUser;
     }
 
@@ -42,7 +42,7 @@ public class UserService{
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
         user.setId(id);
-        rabbitMQPublisher.sendMessage(user);
+        //rabbitMQPublisher.sendMessage(user);
 
         return ResponseEntity.ok(userRepository.save(user));
     }
