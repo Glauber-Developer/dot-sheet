@@ -1,6 +1,10 @@
 package com.user_service.user_service.domain;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "Users")
@@ -13,17 +17,21 @@ public class User {
     private String cargo;
     private String login;
     private String senha;
+    private long workedHours;
+    private double hourlyRate;
 
     public User() {
     }
 
-    public User( String nome, String cargo, String login, String senha) {
+    public User(String nome, String cargo, String login, String senha, double hourlyRate) {
         this.nome = nome;
         this.cargo = cargo;
         this.login = login;
         this.senha = senha;
+        this.hourlyRate = hourlyRate;
     }
 
+    // Getters and Setters
     public Long getId() {
         return id;
     }
@@ -62,5 +70,13 @@ public class User {
 
     public void setSenha(String senha) {
         this.senha = senha;
+    }
+
+    public long getWorkedHours() {
+        return workedHours;
+    }
+
+    public double getHourlyRate() {
+        return hourlyRate;
     }
 }

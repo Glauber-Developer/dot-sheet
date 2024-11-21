@@ -4,18 +4,34 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 @Entity
+@Table(name = "Users")
 public class User {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String nome;
     private String cargo;
     private String login;
     private String senha;
     private long workedHours;
+    private double hourlyRate;
+    private double totalPay;
+
+    public User() {
+    }
+
+    public User(String nome, String cargo, String login, String senha, double hourlyRate) {
+        this.nome = nome;
+        this.cargo = cargo;
+        this.login = login;
+        this.senha = senha;
+        this.hourlyRate = hourlyRate;
+        this.totalPay = 0.0;
+    }
 
     // Getters and Setters
     public Long getId() {
@@ -62,8 +78,19 @@ public class User {
         return workedHours;
     }
 
+    public double getHourlyRate() {
+        return hourlyRate;
+    }
+
+    public void setTotalPay(double totalPay) {
+        this.totalPay = totalPay;
+    }
+
+    public double getTotalPay() {
+        return totalPay;
+    }
+
     public void setWorkedHours(long workedHours) {
         this.workedHours = workedHours;
     }
-
 }
