@@ -1,6 +1,7 @@
 package com.api_gateway.api_gateway.filter;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.lang.NonNull;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.stereotype.Component;
@@ -18,7 +19,7 @@ public class JwtAuthenticationFilter implements WebFilter {
     private String secretKey;
 
     @Override
-    public Mono<Void> filter(ServerWebExchange exchange, WebFilterChain chain) {
+    public Mono<Void> filter(@NonNull ServerWebExchange exchange, @NonNull WebFilterChain chain) {
         ServerHttpRequest request = exchange.getRequest();
         if (!request.getHeaders().containsKey(HttpHeaders.AUTHORIZATION)) {
             return chain.filter(exchange);
