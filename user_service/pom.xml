@@ -40,7 +40,6 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
-        
         <!-- Dependência do Spring Doc para documentação -->
         <dependency>
             <groupId>org.springdoc</groupId>
