@@ -8,6 +8,9 @@ services:
     ports:
       - "5672:5672"
       - "15672:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest  
 
   eureka-server:
     image: eureka-server-image
@@ -47,12 +50,15 @@ services:
       - SPRING_APPLICATION_NAME=payroll-service
       - SPRING_DATASOURCE_USERNAME=user
       - SPRING_DATASOURCE_PASSWORD=password
+      - SPRING_RABBITMQ_HOST=rabbitmq
     networks:
       - eureka-network
     depends_on:
       payroll-db:
         condition: service_healthy
       eureka-server:
+        condition: service_started
+      rabbitmq:
         condition: service_started
 
   payroll-db:
@@ -92,6 +98,8 @@ services:
         condition: service_healthy
       eureka-server:
         condition: service_started
+      rabbitmq:
+        condition: service_started
 
   attendance-db:
     image: postgres:latest
@@ -130,6 +138,8 @@ services:
         condition: service_healthy
       eureka-server:
         condition: service_started
+      rabbitmq:
+        condition: service_started
 
   reporting-db:
     image: postgres:latest
@@ -167,6 +177,8 @@ services:
       user-db:
         condition: service_healthy
       eureka-server:
+        condition: service_started
+      rabbitmq:
         condition: service_started
 
   user-db:

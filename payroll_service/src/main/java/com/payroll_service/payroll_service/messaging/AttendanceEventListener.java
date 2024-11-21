@@ -15,8 +15,13 @@ public class AttendanceEventListener {
         this.payrollService = payrollService;
     }
 
-    @RabbitListener(queues = "${attendance.rabbitmq.queue}")
+    @RabbitListener(queues = "attendance.payroll.queue")
     public void handleAttendanceEvent(Attendance attendance) {
         payrollService.processAttendanceEvent(attendance);
+    }
+
+    @RabbitListener(queues = "user.payroll.queue")
+    public void handleUserEvent(String message) {
+        System.out.println("Received user event: " + message);
     }
 }
