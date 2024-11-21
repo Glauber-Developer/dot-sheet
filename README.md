@@ -98,6 +98,21 @@ Antes de rodar o projeto, certifique-se de ter instalado:
 7. Acesse o RabbitMQ para visualizar os eventos:
    ```bash
    http://localhost:15672
+
+8. Acesse o Spring Doc para User:
+   ```bash
+   http://localhost:8084/swagger-ui/index.html
+
+9. Acesse o Spring Doc para Reporting:
+   ```bash
+   http://localhost:8085/swagger-ui/index.html
+
+10. Acesse o Spring Doc para Attendance:
+   ```bash
+   http://localhost:8086/swagger-ui/index.html
+
+
+
 ## *Licença*
 
 *Este projeto está licenciado sob a MIT License.*
