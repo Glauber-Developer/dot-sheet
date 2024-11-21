@@ -35,6 +35,17 @@ A aplicação é composta pelos seguintes microserviços:
 
 ---
 
+## Documentação da API
+
+Cada microserviço possui sua própria documentação Swagger UI acessível através dos seguintes endpoints:
+
+- UserService: http://localhost:8080/user-service/swagger-ui.html
+- AttendanceService: http://localhost:8080/attendance-service/swagger-ui.html
+- PayrollService: http://localhost:8080/payroll-service/swagger-ui.html
+- ReportingService: http://localhost:8080/reporting-service/swagger-ui.html
+
+---
+
 ## **Diagrama do Fluxo de Comunicação**
 
 Diagrama de Fluxo Mermaid
@@ -100,4 +111,4 @@ Antes de rodar o projeto, certifique-se de ter instalado:
    http://localhost:15672
 ## *Licença*
 
-*Este projeto está licenciado sob a MIT License.*
+*Este projeto está licenciado sob a MIT License.* 
