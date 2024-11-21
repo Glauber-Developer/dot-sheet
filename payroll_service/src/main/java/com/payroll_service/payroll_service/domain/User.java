@@ -17,6 +17,18 @@ public class User {
     private String senha;
     private long workedHours;
 
+    public User() {
+    }
+
+    public User(Long id, String nome, String cargo, String login, String senha, long workedHours) {
+        this.id = id;
+        this.nome = nome;
+        this.cargo = cargo;
+        this.login = login;
+        this.senha = senha;
+        this.workedHours = workedHours;
+    }
+
     // Getters and Setters
     public Long getId() {
         return id;
