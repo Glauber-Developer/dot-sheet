@@ -1,7 +1,8 @@
-package com.attendance_service.attendance_service.repository;
+package com.attendance_service.attendance_service.infrastructure.repository;
 
-import com.attendance_service.attendance_service.modal.Attendance;
 import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.attendance_service.attendance_service.model.Attendance;
 
 import java.util.List;
 import java.util.Optional;

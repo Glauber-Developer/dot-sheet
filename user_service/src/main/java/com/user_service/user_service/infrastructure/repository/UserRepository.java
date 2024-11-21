@@ -1,4 +1,4 @@
-package com.user_service.user_service.infrastructure;
+package com.user_service.user_service.infrastructure.repository;
 
 import com.user_service.user_service.domain.User;
 import org.springframework.data.jpa.repository.JpaRepository;

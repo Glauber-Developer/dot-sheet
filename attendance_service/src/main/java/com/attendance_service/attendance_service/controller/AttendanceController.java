@@ -2,7 +2,8 @@ package com.attendance_service.attendance_service.controller;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import com.attendance_service.attendance_service.modal.Attendance;
+
+import com.attendance_service.attendance_service.model.Attendance;
 import com.attendance_service.attendance_service.service.AttendanceService;
 
 import java.util.List;
