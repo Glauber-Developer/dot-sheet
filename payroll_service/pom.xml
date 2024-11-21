@@ -69,6 +69,12 @@
 			<artifactId>spring-cloud-starter-openfeign</artifactId>
 			<version>3.0.4</version>
 		</dependency>
+                <!-- Dependência do Spring Doc para documentação -->
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+            <version>2.5.0</version>
+        </dependency>
 	</dependencies>
 	<dependencyManagement>
         <dependencies>
