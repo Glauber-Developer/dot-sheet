@@ -1,4 +1,4 @@
-package com.user_service.user_service;
+package com.user_service.user_service.infrastructure.config;
 
 import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;
