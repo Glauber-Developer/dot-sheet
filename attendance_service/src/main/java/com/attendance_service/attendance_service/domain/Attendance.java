@@ -27,6 +27,18 @@ public class Attendance {
         this.createdAt = LocalDateTime.now();
     }
 
+    public Attendance(Long id, String employeeId, LocalDateTime checkInTime, LocalDateTime checkOutTime, LocalDateTime createdAt) {
+        this.id = id;
+        this.employeeId = employeeId;
+        this.checkInTime = checkInTime;
+        this.checkOutTime = checkOutTime;
+        this.createdAt = createdAt;
+    }
+
+    public Attendance(){
+
+    }
+
     // Getters and Setters
     public Long getId() {
         return id;

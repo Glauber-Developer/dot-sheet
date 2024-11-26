@@ -16,6 +16,18 @@ public class AttendanceReport {
     private int totalCheckIns;
     private int punctualCheckIns;
 
+    public AttendanceReport(Long o, long l, LocalDate localDate, int i, int i1) {
+        this.id = id;
+        this.userId = userId;
+        this.reportDate = reportDate;
+        this.totalCheckIns = totalCheckIns;
+        this.punctualCheckIns = punctualCheckIns;
+    }
+
+    public AttendanceReport() {
+
+    }
+
     // Getters and setters
     public Long getId() {
         return id;
