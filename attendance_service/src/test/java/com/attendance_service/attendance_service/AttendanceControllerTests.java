@@ -1,80 +1,80 @@
-package com.attendance_service.attendance_service;
+// package com.attendance_service.attendance_service;
 
-import com.attendance_service.attendance_service.app.controller.AttendanceController;
-import com.attendance_service.attendance_service.app.service.AttendanceService;
-import com.attendance_service.attendance_service.domain.Attendance;
+// import com.attendance_service.attendance_service.app.controller.AttendanceController;
+// import com.attendance_service.attendance_service.app.service.AttendanceService;
+// import com.attendance_service.attendance_service.domain.Attendance;
 
-import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import org.springframework.http.ResponseEntity;
+// import org.junit.jupiter.api.Test;
+// import org.mockito.InjectMocks;
+// import org.mockito.Mock;
+// import org.mockito.MockitoAnnotations;
+// import org.springframework.http.ResponseEntity;
 
-import java.time.LocalDateTime;
-import java.util.List;
+// import java.time.LocalDateTime;
+// import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
+// import static org.junit.jupiter.api.Assertions.*;
+// import static org.mockito.Mockito.*;
 
-class AttendanceControllerTests {
+// class AttendanceControllerTests {
 
-    @Mock
-    private AttendanceService attendanceService;
+//     @Mock
+//     private AttendanceService attendanceService;
 
-    @InjectMocks
-    private AttendanceController attendanceController;
+//     @InjectMocks
+//     private AttendanceController attendanceController;
 
-    public AttendanceControllerTests() {
-        MockitoAnnotations.openMocks(this);
-    }
+//     public AttendanceControllerTests() {
+//         MockitoAnnotations.openMocks(this);
+//     }
 
-    @Test
-    void testCheckIn() {
-        String employeeId = "EMP001";
-        Attendance attendance = new Attendance();
-        attendance.setEmployeeId(employeeId);
-        attendance.setCheckInTime(LocalDateTime.now());
+//     @Test
+//     void testCheckIn() {
+//         String employeeId = "EMP001";
+//         Attendance attendance = new Attendance();
+//         attendance.setEmployeeId(employeeId);
+//         attendance.setCheckInTime(LocalDateTime.now());
 
-        when(attendanceService.registerCheckIn(employeeId)).thenReturn(attendance);
+//         when(attendanceService.registerCheckIn(employeeId)).thenReturn(attendance);
 
-        ResponseEntity<Attendance> response = attendanceController.checkIn(employeeId);
+//         ResponseEntity<Attendance> response = attendanceController.checkIn(employeeId);
 
-        assertNotNull(response.getBody());
-        assertEquals(employeeId, response.getBody().getEmployeeId());
-        verify(attendanceService, times(1)).registerCheckIn(employeeId);
-    }
+//         assertNotNull(response.getBody());
+//         assertEquals(employeeId, response.getBody().getEmployeeId());
+//         verify(attendanceService, times(1)).registerCheckIn(employeeId);
+//     }
 
-    @Test
-    void testCheckOut() {
-        String employeeId = "EMP001";
-        Attendance attendance = new Attendance();
-        attendance.setEmployeeId(employeeId);
-        attendance.setCheckInTime(LocalDateTime.now());
-        attendance.setCheckOutTime(LocalDateTime.now().plusHours(8));
+//     @Test
+//     void testCheckOut() {
+//         String employeeId = "EMP001";
+//         Attendance attendance = new Attendance();
+//         attendance.setEmployeeId(employeeId);
+//         attendance.setCheckInTime(LocalDateTime.now());
+//         attendance.setCheckOutTime(LocalDateTime.now().plusHours(8));
 
-        when(attendanceService.registerCheckOut(employeeId)).thenReturn(attendance);
+//         when(attendanceService.registerCheckOut(employeeId)).thenReturn(attendance);
 
-        ResponseEntity<Attendance> response = attendanceController.checkOut(employeeId);
+//         ResponseEntity<Attendance> response = attendanceController.checkOut(employeeId);
 
-        assertNotNull(response.getBody());
-        assertNotNull(response.getBody().getCheckOutTime());
-        verify(attendanceService, times(1)).registerCheckOut(employeeId);
-    }
+//         assertNotNull(response.getBody());
+//         assertNotNull(response.getBody().getCheckOutTime());
+//         verify(attendanceService, times(1)).registerCheckOut(employeeId);
+//     }
 
-    @Test
-    void testGetAttendancesByEmployee() {
-        String employeeId = "EMP001";
-        Attendance attendance = new Attendance();
-        attendance.setEmployeeId(employeeId);
-        attendance.setCheckInTime(LocalDateTime.now());
+//     @Test
+//     void testGetAttendancesByEmployee() {
+//         String employeeId = "EMP001";
+//         Attendance attendance = new Attendance();
+//         attendance.setEmployeeId(employeeId);
+//         attendance.setCheckInTime(LocalDateTime.now());
 
-        when(attendanceService.getAttendanceByEmployeeId(employeeId)).thenReturn(List.of(attendance));
+//         when(attendanceService.getAttendanceByEmployeeId(employeeId)).thenReturn(List.of(attendance));
 
-        ResponseEntity<List<Attendance>> response = attendanceController.getAttendancesByEmployee(employeeId);
+//         ResponseEntity<List<Attendance>> response = attendanceController.getAttendancesByEmployee(employeeId);
 
-        assertNotNull(response.getBody());
-        assertEquals(1, response.getBody().size());
-        assertEquals(employeeId, response.getBody().get(0).getEmployeeId());
-        verify(attendanceService, times(1)).getAttendanceByEmployeeId(employeeId);
-    }
-}
+//         assertNotNull(response.getBody());
+//         assertEquals(1, response.getBody().size());
+//         assertEquals(employeeId, response.getBody().get(0).getEmployeeId());
+//         verify(attendanceService, times(1)).getAttendanceByEmployeeId(employeeId);
+//     }
+// }

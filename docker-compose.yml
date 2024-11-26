@@ -1,8 +1,10 @@
 version: '3.8'
 
 services:
+  # RabbitMQ
   rabbitmq:
     image: rabbitmq:3-management
+    container_name: rabbitmq
     networks:
       - eureka-network
     ports:
@@ -12,8 +14,12 @@ services:
       RABBITMQ_DEFAULT_USER: guest
       RABBITMQ_DEFAULT_PASS: guest  
 
+  # Eureka Server
   eureka-server:
-    image: eureka-server-image
+    build:
+      context: ./eureka_server
+      dockerfile: Dockerfile
+    container_name: eureka-server
     environment:
       - EUREKA_CLIENT_REGISTER_WITH_EUREKA=false
       - EUREKA_CLIENT_FETCH_REGISTRY=false
@@ -27,8 +33,12 @@ services:
     depends_on:
       - rabbitmq
 
+  # API Gateway
   api-gateway:
-    image: api-gateway-image
+    build:
+      context: ./api_gateway
+      dockerfile: Dockerfile
+    container_name: api-gateway
     environment:
       - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8761/eureka/
       - SPRING_APPLICATION_NAME=api-gateway
@@ -37,50 +47,57 @@ services:
     ports:
       - "8080:8080"
     depends_on:
-      eureka-server:
-        condition: service_started
+      - eureka-server
 
+  # Payroll Service
   payroll-service:
-    image: payroll-service-image
-    ports:
-      - "8087:8087"
+    build:
+      context: ./payroll_service
+      dockerfile: Dockerfile
+    container_name: payroll-service
     environment:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://payroll-db:5432/payroll
-      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8761/eureka/
-      - SPRING_APPLICATION_NAME=payroll-service
-      - SPRING_DATASOURCE_USERNAME=user
+      - SPRING_DATASOURCE_USERNAME=payroll
       - SPRING_DATASOURCE_PASSWORD=password
       - SPRING_RABBITMQ_HOST=rabbitmq
+      - SPRING_RABBITMQ_PORT=5672
+      - SPRING_RABBITMQ_USERNAME=guest
+      - SPRING_RABBITMQ_PASSWORD=guest
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8761/eureka/
+      - SPRING_APPLICATION_NAME=payroll-service
     networks:
       - eureka-network
+    ports:
+      - "8087:8087"
     depends_on:
-      payroll-db:
-        condition: service_healthy
-      eureka-server:
-        condition: service_started
-      rabbitmq:
-        condition: service_started
+      - payroll-db
+      - eureka-server
+      - rabbitmq
 
   payroll-db:
     image: postgres:latest
+    restart: always
+    container_name: payroll-db
     environment:
       POSTGRES_DB: payroll
-      POSTGRES_USER: user
+      POSTGRES_USER: payroll
       POSTGRES_PASSWORD: password
     networks:
       - eureka-network
     ports:
-      - "5432:5432"
+      - "5433:5432"
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U user"]
+      test: ["CMD-SHELL", "pg_isready -U payroll"]
       interval: 30s
       timeout: 10s
       retries: 5
 
+  # Attendance Service
   attendance-service:
-    image: attendance-service-image
-    ports:
-      - "8086:8086"
+    build:
+      context: ./attendance_service
+      dockerfile: Dockerfile
+    container_name: attendance-service
     environment:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://attendance-db:5432/attendance
       - SPRING_DATASOURCE_USERNAME=user
@@ -93,16 +110,17 @@ services:
       - SPRING_APPLICATION_NAME=attendance-service
     networks:
       - eureka-network
+    ports:
+      - "8086:8086"
     depends_on:
-      attendance-db:
-        condition: service_healthy
-      eureka-server:
-        condition: service_started
-      rabbitmq:
-        condition: service_started
+      - attendance-db
+      - eureka-server
+      - rabbitmq
 
   attendance-db:
     image: postgres:latest
+    restart: always
+    container_name: attendance-db
     environment:
       POSTGRES_DB: attendance
       POSTGRES_USER: user
@@ -110,79 +128,85 @@ services:
     networks:
       - eureka-network
     ports:
-      - "5433:5432"
+      - "5434:5432"
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U user"]
+      test: ["CMD-SHELL", "pg_isready -U user -d attendance"]
       interval: 30s
       timeout: 10s
       retries: 5
 
+  # Reporting Service
   reporting-service:
-    image: reporting-service-image
-    ports:
-      - "8085:8085"
+    build:
+      context: ./reporting_service
+      dockerfile: Dockerfile
+    container_name: reporting-service
     environment:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://reporting-db:5432/reporting
-      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8761/eureka/
-      - SPRING_APPLICATION_NAME=reporting-service
-      - SPRING_DATASOURCE_USERNAME=user
+      - SPRING_DATASOURCE_USERNAME=reporting
       - SPRING_DATASOURCE_PASSWORD=password
       - SPRING_RABBITMQ_HOST=rabbitmq
       - SPRING_RABBITMQ_PORT=5672
       - SPRING_RABBITMQ_USERNAME=guest
       - SPRING_RABBITMQ_PASSWORD=guest
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8761/eureka/
+      - SPRING_APPLICATION_NAME=reporting-service
     networks:
       - eureka-network
+    ports:
+      - "8085:8085"
     depends_on:
-      reporting-db:
-        condition: service_healthy
-      eureka-server:
-        condition: service_started
-      rabbitmq:
-        condition: service_started
+      - reporting-db
+      - eureka-server
+      - rabbitmq
 
   reporting-db:
     image: postgres:latest
+    restart: always
+    container_name: reporting-db
     environment:
       POSTGRES_DB: reporting
-      POSTGRES_USER: user
+      POSTGRES_USER: reporting
       POSTGRES_PASSWORD: password
     networks:
       - eureka-network
     ports:
-      - "5434:5432"
+      - "5435:5432"
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U user"]
+      test: ["CMD-SHELL", "pg_isready -U reporting"]
       interval: 30s
       timeout: 10s
       retries: 5
 
+  # User Service
   user-service:
-    image: user-service-image
-    ports:
-      - "8084:8084"
+    build:
+      context: ./user_service
+      dockerfile: Dockerfile
+    container_name: user-service
     environment:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://user-db:5432/user
-      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8761/eureka/
-      - SPRING_APPLICATION_NAME=user-service
       - SPRING_DATASOURCE_USERNAME=user
       - SPRING_DATASOURCE_PASSWORD=password
       - SPRING_RABBITMQ_HOST=rabbitmq
       - SPRING_RABBITMQ_PORT=5672
       - SPRING_RABBITMQ_USERNAME=guest
       - SPRING_RABBITMQ_PASSWORD=guest
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8761/eureka/
+      - SPRING_APPLICATION_NAME=user-service
     networks:
       - eureka-network
+    ports:
+      - "8084:8084"
     depends_on:
-      user-db:
-        condition: service_healthy
-      eureka-server:
-        condition: service_started
-      rabbitmq:
-        condition: service_started
+      - user-db
+      - eureka-server
+      - rabbitmq
 
   user-db:
     image: postgres:latest
+    restart: always
+    container_name: user-db
     environment:
       POSTGRES_DB: user
       POSTGRES_USER: user
@@ -190,7 +214,7 @@ services:
     networks:
       - eureka-network
     ports:
-      - "5435:5432"
+      - "5436:5432"
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U user"]
       interval: 30s

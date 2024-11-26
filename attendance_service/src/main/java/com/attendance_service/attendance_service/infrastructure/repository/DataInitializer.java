@@ -1,7 +1,7 @@
 package com.attendance_service.attendance_service.infrastructure.repository;
 
 import com.attendance_service.attendance_service.domain.Attendance;
-import com.attendance_service.attendance_service.infrastructure.repository.AttendanceRepository;
+//import com.attendance_service.attendance_service.infrastructure.repository.AttendanceRepository;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;

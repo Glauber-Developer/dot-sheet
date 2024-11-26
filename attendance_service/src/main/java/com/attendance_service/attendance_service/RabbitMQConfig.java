@@ -25,6 +25,10 @@ public class RabbitMQConfig {
     Queue attendancePayrollQueue() {
         return new Queue("attendance.payroll.queue", true);
     }
+    @Bean
+    Queue userAttendanceQueue() {
+        return new Queue("user.attendance.queue", true);
+    }
 
     @Bean
     Queue attendanceReportingQueue() {
@@ -40,7 +44,10 @@ public class RabbitMQConfig {
     Binding bindingReporting(Queue attendanceReportingQueue, TopicExchange attendanceExchange) {
         return BindingBuilder.bind(attendanceReportingQueue).to(attendanceExchange).with("attendance.events");
     }
-
+    @Bean
+    Binding bindingAttendance(Queue userAttendanceQueue, TopicExchange attendanceExchange) {
+        return BindingBuilder.bind(userAttendanceQueue).to(attendanceExchange).with("attendance.events");
+    }
 
     // public static final String EXCHANGE_NAME = "attendance_service_exchange";
     // public static final String ROUTING_KEY = "attendance.events";

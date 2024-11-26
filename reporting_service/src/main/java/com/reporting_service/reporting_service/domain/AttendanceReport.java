@@ -16,7 +16,7 @@ public class AttendanceReport {
     private int totalCheckIns;
     private int punctualCheckIns;
 
-    public AttendanceReport(Long o, long l, LocalDate localDate, int i, int i1) {
+    public AttendanceReport(Long id, long userId, LocalDate reportDate, int totalCheckIns, int punctualCheckIns) {
         this.id = id;
         this.userId = userId;
         this.reportDate = reportDate;
