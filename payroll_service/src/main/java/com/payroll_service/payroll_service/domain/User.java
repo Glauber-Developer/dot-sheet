@@ -4,8 +4,10 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 @Entity
+@Table(name = "\"user\"")
 public class User {
 
     @Id
@@ -16,6 +18,17 @@ public class User {
     private String login;
     private String senha;
     private long workedHours;
+
+    public User() {
+    }
+    
+    public User(String nome, String cargo, String login, String senha, long workedHours) {
+        this.nome = nome;
+        this.cargo = cargo;
+        this.login = login;
+        this.senha = senha;
+        this.workedHours = workedHours;
+    }
 
     // Getters and Setters
     public Long getId() {
