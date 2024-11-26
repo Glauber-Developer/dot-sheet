@@ -76,37 +76,34 @@ Antes de rodar o projeto, certifique-se de ter instalado:
    ```bash
    git clone https://github.com/Glauber-Developer/dot-sheet.git
    cd dot-sheet
-2. Build Images para Windows:
-    
-   ```bash
-   .\build-images.ps1
 
-3. Build Images para Mac e Linux:
+
+2. Build Images:
    ```bash
-    bash ./build-images.sh
-4. Suba os serviços com Docker Compose:
+   docker-compose build
+3. Suba os serviços com Docker Compose:
    ```bash
    docker-compose up
 
-5. Acesse o Eureka Server para visualizar os microserviços registrados:
+4. Acesse o Eureka Server para visualizar os microserviços registrados:
    ```bash
    http://localhost:8761
 
-6. Acesse o API Gateway para interagir com os serviços:
+5. Acesse o API Gateway para interagir com os serviços:
    ```bash
    http://localhost:8080
-7. Acesse o RabbitMQ para visualizar os eventos:
+6. Acesse o RabbitMQ para visualizar os eventos:
    ```bash
    http://localhost:15672
 
-8. Acesse o Spring Doc para User:
+7. Acesse o Spring Doc para User:
    ```bash
    http://localhost:8084/swagger-ui/index.html
 
-9. Acesse o Spring Doc para Reporting:
+8. Acesse o Spring Doc para Reporting:
    ```bash
    http://localhost:8085/swagger-ui/index.html
 
-10. Acesse o Spring Doc para Attendance:
+9. Acesse o Spring Doc para Attendance:
    ```bash
    http://localhost:8086/swagger-ui/index.html
