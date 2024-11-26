@@ -1,4 +1,4 @@
-package com.payroll_service.payroll_service.config;
+package com.payroll_service.payroll_service.infrastructure.config;
 
 import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;

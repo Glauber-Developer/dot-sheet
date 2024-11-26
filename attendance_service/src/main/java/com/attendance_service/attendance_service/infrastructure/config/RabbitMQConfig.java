@@ -1,4 +1,4 @@
-package com.attendance_service.attendance_service;
+package com.attendance_service.attendance_service.infrastructure.config;
 
 import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;

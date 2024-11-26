@@ -1,4 +1,4 @@
-package com.payroll_service.payroll_service.messaging;
+package com.payroll_service.payroll_service.infrastructure.consumer;
 
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Component;
